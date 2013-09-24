@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]
+then 
+	echo "Error: a file name is required"
+	exit
+fi
+
+filename=(`echo $1 | tr "." "\n"`)
+
+mkdir $filename
+cp $1 $filename/$1
+cd $filename
+
+potrace -b eps -W 2in -H 2in -r 300 -n $1
+pstoedit -f "dxf:-mm -polyaslines" $filename.eps $filename.dxf
+
+cat > $filename.scad << EOF
+dxf_linear_extrude(file="$filename.dxf", layer="0", height=2, center=true);
+EOF
+
+/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD -o $filename.stl -D 'quality="production"' $filename.scad 
+
+exit
