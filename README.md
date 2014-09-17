@@ -14,7 +14,7 @@ If you are a [Homebrew](http://brew.sh/) user you can also install *porace* and 
 ## Making the script executable
 By default not every file on your computer is executable. This is a very good security feature but requires modifucations to the permissions to run the script from the command line. From within the context of the directory housing the script type the following command: 
 ```bash
-chmod u+x butmap2stl
+chmod u+x bitmap2stl
 ```
 
 ## Using the script
